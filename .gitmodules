@@ -1,0 +1,6 @@
+[submodule "submodule/limits-admission-webhook"]
+	path = submodule/limits-admission-webhook
+	url = https://github.com/tillkahlbrock/limits-admission-webhook.git
+[submodule "submodule/c"]
+	path = submodule/c
+	url = https://github.com/ryanmjacobs/c.git
