@@ -13,6 +13,9 @@ IMAGES := \
 TARGET_TAG = v0.2
 TARGET_REPO = yangkuihappy/kubeadm
 
+test:
+	 for image in ${IMAGES}; do filename=$$(echo $${image} | cut -f 2 -d '/'); echo $${filename}; done
+
 release:
 	mkdir -p cni/bin images services bin
 	wget "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-amd64-${CNI_VERSION}.tgz"
