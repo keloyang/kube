@@ -126,9 +126,10 @@ function setup_no-passwd(){
 
 function build_docker_scripts(){
 	remoteaddr=$1
-	echo $install
 	cat > $install <<EOF
 #!/bin/bash
+systemctl stop firewalld
+systemctl disable firewalld
 
 sed -i '/swap/s/^[#]*//g' /etc/fstab
 sed -i '/swap/s/^\(.*\)$/#\1/g' /etc/fstab

@@ -26,7 +26,6 @@ metadata:
   labels:
     name: app1
   name: app1-service
-  namespace: default
 spec:
   type: NodePort
   selector:
