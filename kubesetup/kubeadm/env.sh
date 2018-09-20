@@ -38,7 +38,6 @@ function download_docker(){
 }
  
 function run_remote(){
-	echo $@
 	remote=$1
 	shift 1
 	ssh $user@$remote $@
@@ -120,8 +119,8 @@ function setup_no-passwd(){
 	worker=(${master[@]} ${node[@]})
 	for n in ${worker[@]};
 	do 
-		echo $n
 		ssh-copy-id -i ~/.ssh/id_rsa.pub  $user@$n
+		run_remote $n hostnamectl set-hostname $n
 	done
 }
 
@@ -217,11 +216,11 @@ function copy(){
 }
 
 function kubectl(){
-	#docker pull $kubeimage
-	#docker run --name kubeadm -itd $kubeimage /bin/sh
-	#docker cp kubeadm:/opt /tmp
-	#docker kill kubeadm;
-	#docker rm kubeadm
+	docker pull $kubeimage
+	docker run --name kubeadm -itd $kubeimage /bin/sh
+	docker cp kubeadm:/opt /tmp
+	docker kill kubeadm;
+	docker rm kubeadm
 	
 	mkdir -p $binarybin
 	copy 10-kubeadm.conf $binarybin
@@ -231,12 +230,12 @@ function kubectl(){
 	copy /tmp/opt/kubelet $binarybin
 	copy /tmp/opt/kubeadm $binarybin
 	copy /tmp/opt/crictl $binarybin
-	#cp /tmp/opt/images.tgz $binarybin
+	copy /tmp/opt/images.tgz $binarybin
 }
 
 operation=$1
 
-if [[ ${operation} = "evn" ]];
+if [[ ${operation} = "enn" ]];
 then
 	setup_no-passwd
 fi

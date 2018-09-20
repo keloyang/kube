@@ -10,20 +10,30 @@ MASTER=192.168.137.2
 
 for n in ${NODES[@]};
 do
+	echo $n
 	ssh root@$n kubectl drain $n --delete-local-data --force --ignore-daemonsets
 	ssh root@$n kubectl delete node $n
-	ssh root@$n kubeadm reset
+	ssh root@$n echo y|kubeadm reset
 	ssh root@$n rm -rf /etc/kubernetes
 done
 
-kubeadm reset
+echo y|kubeadm reset
 rm -rf /var/lib/etcd
 rm -rf /etc/kubernetes
 rm -rf ~/.kube/config
 
-
 var=`kubeadm init --config $INSTALLDIR/kubeadm.conf`
-CMD="${var:0-160}"
+echo $var > log
+var=`cat log`
+rm -rf log
+var="${var:0-200}"
+key="root: "
+pos=`echo "$var" | awk -F ''$key'' '{printf "%d", length($0)-length($NF)}'`
+echo ${var}
+len=${#var}
+len=$(($len - $pos))
+CMD=${var:$pos:$len} 
+
 for n in ${NODES[@]};
 do
 	echo "registr node ============================================================================="
