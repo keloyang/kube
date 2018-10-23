@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nginx-deployment-67594d6bf6
+  labels:
+    k8s-app: nginx-deployment-67594d6bf6
+spec:
+  selector:
+    matchLabels:
+      name: nginx-deployment-67594d6bf6
+  template:
+    metadata:
+      labels:
+        name: nginx-deployment-67594d6bf6
+    spec:
+      containers:
+      - name: stsperfmem-1-6c48d4c4d5
+        image: dockerhub.jd.com/lambda/perfmem:latest
+        command:
+        - "/mem"
+        - "1"
+      - name: busybox
+        image: dockerhub.jd.com/lambda/busybox:latest
+        command:
+        - "sleep"
+        - "3600"

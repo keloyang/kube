@@ -1,23 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: busybox
+  name: stsperfmem-1
   labels:
-    app: busybox
+    app: stsperfmem-1
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: busybox
+      app: stsperfmem-1
   template:
     metadata:
       labels:
-        app: busybox
+        app: stsperfmem-1
     spec:
       containers:
-      - name: busybox
+      - name: stsperfmem-1
         image: busybox
         command:
         - "sleep"
         - "300000"
- 

@@ -1,0 +1,23 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: stsperfmem-1-6c48d4c4d5
+spec:
+  serviceName: stsperfmem-1-6c48d4c4d5
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: stsperfmem-1-6c48d4c4d5
+    spec:
+      containers:
+      - name: stsperfmem-1-6c48d4c4d5
+        image: dockerhub.jd.com/lambda/perfmem:latest
+        command:
+        - "/mem"
+        - "102"
+      - name: busybox
+        image: dockerhub.jd.com/lambda/busybox:latest
+        command:
+        - "sleep"
+        - "3600"
